@@ -1,0 +1,8 @@
+name: Advanced Tag Graph OPERATIONAL
+description: Directed graph for tag management with navigation.
+version: 1.0
+ui:
+  javascript:
+    - _assets/vis.min.js
+    - index.js
+    
