@@ -1,5 +1,5 @@
 (function () {
-    console.log("Tag Graph Plugin Loaded (vis)");
+    console.log("[Adv Tag Graph] Tag Graph Plugin Loaded (vis)");
 
     // --- GRAPH STATE ---
     let nodes = new vis.DataSet();
@@ -29,6 +29,8 @@
 
     /** FETCH ALL TAGS */
     async function fetchTags() {
+        console.log("[Adv Tag Graph] Fetching all tags...");
+
         const query = `
             query AllTagsHierarchy {
                 allTags {
@@ -50,6 +52,7 @@
 
     /** FETCH RELATED TAGS FOR SEARCH RESULTS */
     async function fetchTagsWithContext(tagIds) {
+        console.log("[Adv Tag Graph] Fetching all tags with context...");
         const query = `
             query ($filter: FindFilterType, $tag_filter: TagFilterType) {
                 findTags(filter: $filter, tag_filter: $tag_filter) {
@@ -76,6 +79,7 @@
 
     // lightweight search
     async function searchTags(term) {
+        console.log("[Adv Tag Graph] Fetching tag (${term})...");
         if (!term) return [];
 
         const query = `
@@ -101,6 +105,7 @@
 
     /** FETCH TAG */
     async function getTag(tagId) {
+        console.log("[Adv Tag Graph] Fetching tag (by id: ${tagId})...");
         const query = `
         query ($id: ID!) {
             findTag(id: $id) {
@@ -117,6 +122,7 @@
 
     /** DELETE TAG */
     async function deleteTag(id) {
+        console.log("[Adv Tag Graph] Deleting tag (by id: ${tagId})...");
         const mutation = `
         mutation TagDestroy($input: TagDestroyInput!) {
             tagDestroy(input: $input)
@@ -133,6 +139,8 @@
 
     /** CREATE NODE (TAG) */
     async function createTag(name) {
+        console.log("[Adv Tag Graph] Creating tag (by name: ${name})...");
+
         const mutation = `
         mutation ($input: TagCreateInput!) {
             tagCreate(input: $input) {
@@ -222,6 +230,8 @@
     // --- GRAPH SECTION ---
     /** BUILD GRAPH */
     function buildGraph(tags) {
+        console.log("[Adv Tag Graph] Building graph...");
+
         nodes.clear();
         edges.clear();
 
@@ -247,6 +257,7 @@
 
     /** CREATE GRAPH */
     function createGraph(container) {
+        console.log("[Adv Tag Graph] Creating graph in container:", container);
         network = new vis.Network(container, { nodes, edges }, {
             physics: {
                 enabled: true,
@@ -355,19 +366,25 @@
 
     /** RENDER GRAPH - AS SEPARATE PAGE */
     async function renderGraphPage() {
+        console.log("[Adv Tag Graph] Rendering graph page...");
+
         // Check if we're already on the graph page
         if (window.location.pathname === "/tag-graph") {
+            console.log("[Adv Tag Graph: render] Already on graph page");
             return;
         }
 
         // Navigate to the graph page
+        console.log("[Adv Tag Graph: render] Navigate to the graph page");
         window.location.href = "/tag-graph";
     }
 
     /** HANDLE GRAPH PAGE */
     async function handleGraphPageLoad() {
+        console.log("[Adv Tag Graph] Page load...");
         // Only run if we're on the graph page
         if (window.location.pathname !== "/tag-graph") {
+            console.log("[Adv Tag Graph: handle] already on page");
             return;
         }
 
@@ -375,6 +392,7 @@
         // --- HIGH LIGHT ACTIVE STATE ---
         // We check for the button; if it's not there yet, addNavButton will handle it 
         // when it eventually spawns, but we try here first.
+        console.log("[Adv Tag Graph: handle] check for the button...");
         const navBtn = document.getElementById("tag-graph-btn");
         if (navBtn) navBtn.classList.add("active");
 
@@ -869,6 +887,8 @@
     };
 
     function registerHotkeys() {
+        console.log("[Adv Tag Graph] Registering hotkeys");
+
         document.addEventListener("keydown", (e) => {
             // Only trigger if a context menu is open
             if (!activeContext) return;
@@ -1104,14 +1124,24 @@
 
     // --- ADD NAV BUTTON ---
     function addNavButton() {
+        console.log("[Adv Tag Graph: addNavButton] add nav button...");
         const attemptAdd = () => {
-            const nav = document.querySelector(".navbar-nav");
-            if (!nav) return false;
+            console.log("[Adv Tag Graph: attemptAdd()] Attempting to add nav button...");
 
+            // const nav = document.querySelector(".top-nav");
+            const nav = document.querySelector("div.navbar-nav:nth-child(1)");
+            if (!nav) {
+                console.log("[Adv Tag Graph: attemptAdd()] Nav not found, will retry...");
+                return false
+            };
+            
+            
             if (document.getElementById("tag-graph-btn")) {
+                console.log("[Adv Tag Graph: attemptAdd()] Nav button already added.");
                 return true; // Already added
             }
-
+            
+            // const nav = document.querySelector("div.navbar-nav:nth-child(1)");
             const li = document.createElement("li");
             li.className = "nav-item";
 
@@ -1337,6 +1367,8 @@
 
     // --- WATCH NAVIGATION ---
     function watchNavigation() {
+        console.log("[Adv Tag Graph] Watching navigation...");
+
         let lastUrl = location.href;
 
         setInterval(() => {
@@ -1401,7 +1433,7 @@
 
     // --- INIT ---
     function init() {
-        console.log("Initializing Tag Graph Plugin...");
+        console.log("[Adv Tag Graph] Initializing Tag Graph Plugin...");
 
         // 1. Inject styles first so UI is ready
         injectStyles();

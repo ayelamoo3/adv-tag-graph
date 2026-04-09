@@ -1,9 +1,8 @@
-name: Advanced Tag Graph OPERATIONAL
+name: Advanced Tag Graph FIXING
 description: Directed graph for tag management with navigation.
 version: 1.0
 ui:
   javascript:
     - _assets/vis.min.js
-    - _assets/tag-graph-menu-icon.svg
     - index.js
     
