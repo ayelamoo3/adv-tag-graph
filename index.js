@@ -1122,7 +1122,7 @@
             btn.setAttribute("role", "button");
 
             const icon = document.createElement("img");
-            icon.src = "/plugins/adv-tag-graph/assets/tag-graph-menu-icon.svg";
+            icon.src = "/plugins/adv-tag-graph/_assets/tag-graph-menu-icon.svg";
             icon.style.width = "1.25rem";
             icon.style.height = "1.25rem";
             icon.style.marginRight = "0.5rem";

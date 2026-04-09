@@ -4,5 +4,6 @@ version: 1.0
 ui:
   javascript:
     - _assets/vis.min.js
+    - _assets/tag-graph-menu-icon.svg
     - index.js
     
