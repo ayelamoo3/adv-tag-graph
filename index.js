@@ -263,34 +263,13 @@
                 enabled: true,
                 solver: "forceAtlas2Based",
 
-                // forceAtlas2Based: {
-                //     gravitationalConstant: -50,  // repulsion
-                //     centralGravity: 0.01,        // pull to center
-                //     springLength: 120,           // edge length
-                //     springConstant: 0.08,        // stiffness
-                //     damping: 0.4                 // friction
-                // },
-
-                // forceAtlas2Based: {
-                //     gravitationalConstant: -80,  // repulsion
-                //     centralGravity: 0.01,        // pull to center
-                //     springLength: 120,           // edge length
-                //     springConstant: 0.5,        // stiffness
-                //     damping: 0.4                 // friction
-                // },
-
                 forceAtlas2Based: {
-                    // theta: 0.5,
-                    // gravitationalConstant: -50,  // moderate repulsion
-                    gravitationalConstant: -100,  // moderate repulsion
-                    centralGravity: 0.02,        // slight centering
-                    springLength: 200,            // SHORT edges
-                    // springLength: 250,            // SHORT edges
+                    gravitationalConstant: -200,  // repulsion (spread out <- 0 -> clustered)
+                    centralGravity: 0.04,        // slight centering
+                    springLength: 150,
                     springConstant: .7,         // VERY stiff springs
-                    // springConstant: .9,         // VERY stiff springs
-                    // springConstant: 1.1,         // VERY stiff springs
-                    damping: 0.8,                // responsive/snappy
-                    avoidOverlap: 10,
+                    damping: 0.5,                // responsive/snappy
+                    avoidOverlap: 40,
                 },
 
                 stabilization: {
@@ -318,7 +297,10 @@
             edges: {
                 color: "#FFFFFF",
                 arrows: {
-                    from: { enabled: true }
+                    from: {
+                        enabled: true,
+                        scaleFactor: 0.8,
+                    },
                 }
             },
 
@@ -1134,13 +1116,13 @@
                 console.log("[Adv Tag Graph: attemptAdd()] Nav not found, will retry...");
                 return false
             };
-            
-            
+
+
             if (document.getElementById("tag-graph-btn")) {
                 console.log("[Adv Tag Graph: attemptAdd()] Nav button already added.");
                 return true; // Already added
             }
-            
+
             // const nav = document.querySelector("div.navbar-nav:nth-child(1)");
             const li = document.createElement("li");
             li.className = "nav-item";
@@ -1151,11 +1133,43 @@
             btn.href = "#";
             btn.setAttribute("role", "button");
 
-            const icon = document.createElement("img");
-            icon.src = "/plugins/adv-tag-graph/_assets/tag-graph-menu-icon.svg";
-            icon.style.width = "1.25rem";
-            icon.style.height = "1.25rem";
+            // const icon = document.createElement("img");
+            // icon.src = "/plugins/adv-tag-graph/_assets/tag-graph-menu-icon.svg";
+            // icon.style.width = "1.25rem";
+            // icon.style.height = "1.25rem";
+            // icon.style.marginRight = "0.5rem";
+
+
+            //             const icon = document.createElement("span");
+            //             icon.style.display = "inline-flex";
+            //             icon.style.alignItems = "center";
+            //             icon.style.marginRight = "0.5rem";
+
+            //             icon.innerHTML = `
+            // <svg xmlns="http://www.w3.org/2000/svg" 
+            //      width="20" height="20" 
+            //      viewBox="0 0 24 24" 
+            //      fill="currentColor">
+            //     <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+            // <svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 12c.015 0 .028-.004.042-.004l.94 4.226a2.497 2.497 0 1 0 3.345 3.173l7.182 1.197a2.491 2.491 0 1 0 3.527-2.36l1.902-8.238c.021 0 .04.006.062.006a2.5 2.5 0 1 0-2.03-3.95l-4.53-2.012a2.5 2.5 0 1 0-4.692.528L5.151 7.637A2.495 2.495 0 1 0 3.5 12zm1.018-.222a2.51 2.51 0 0 0 1.26-1.26l4.226.94c0 .014-.004.027-.004.042a2.484 2.484 0 0 0 .416 1.377l-3.54 3.54A2.483 2.483 0 0 0 5.5 16c-.014 0-.028.004-.042.004zm7.184-2.635a2.501 2.501 0 0 0-1.48 1.339l-4.226-.94c0-.014.004-.027.004-.042a2.472 2.472 0 0 0-.247-1.065l4.096-3.072a2.477 2.477 0 0 0 1.457.617zM14 11v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1zm1.173 8.605L7.99 18.408a2.483 2.483 0 0 0-.407-1.285l3.54-3.54a2.405 2.405 0 0 0 2.123.29l2.632 4.74a2.494 2.494 0 0 0-.706.992zM6 20H5a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1zm13 0v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1zm-1.438-1.994c-.02 0-.04-.006-.062-.006a2.466 2.466 0 0 0-.747.127l-2.632-4.74a2.411 2.411 0 0 0 .784-2.53l3.638-1.82a2.502 2.502 0 0 0 .92.731zM20 6h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zm-1.939.963a2.301 2.301 0 0 0 .034 1.18l-3.638 1.82a2.483 2.483 0 0 0-1.763-.943l-.396-3.163a2.499 2.499 0 0 0 1.231-.908zM10 4V3a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1zM2 9a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/><path fill="none" d="M0 0h24v24H0z"/></svg>
+            // </svg>
+            // `;
+
+            const icon = document.createElement("span");
+            icon.style.display = "inline-flex";
+            icon.style.alignItems = "center";
             icon.style.marginRight = "0.5rem";
+
+            icon.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="20"
+                 height="20"
+                 viewBox="0 0 24 24"
+                 fill="currentColor">
+              <path d="M3.5 12c.015 0 .028-.004.042-.004l.94 4.226a2.497 2.497 0 1 0 3.345 3.173l7.182 1.197a2.491 2.491 0 1 0 3.527-2.36l1.902-8.238c.021 0 .04.006.062.006a2.5 2.5 0 1 0-2.03-3.95l-4.53-2.012a2.5 2.5 0 1 0-4.692.528L5.151 7.637A2.495 2.495 0 1 0 3.5 12zm1.018-.222a2.51 2.51 0 0 0 1.26-1.26l4.226.94c0 .014-.004.027-.004.042a2.484 2.484 0 0 0 .416 1.377l-3.54 3.54A2.483 2.483 0 0 0 5.5 16c-.014 0-.028.004-.042.004zm7.184-2.635a2.501 2.501 0 0 0-1.48 1.339l-4.226-.94c0-.014.004-.027.004-.042a2.472 2.472 0 0 0-.247-1.065l4.096-3.072a2.477 2.477 0 0 0 1.457.617zM14 11v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1zm1.173 8.605L7.99 18.408a2.483 2.483 0 0 0-.407-1.285l3.54-3.54a2.405 2.405 0 0 0 2.123.29l2.632 4.74a2.494 2.494 0 0 0-.706.992zM6 20H5a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1zm13 0v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1zm-1.438-1.994c-.02 0-.04-.006-.062-.006a2.466 2.466 0 0 0-.747.127l-2.632-4.74a2.411 2.411 0 0 0 .784-2.53l3.638-1.82a2.502 2.502 0 0 0 .92.731zM20 6h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zm-1.939.963a2.301 2.301 0 0 0 .034 1.18l-3.638 1.82a2.483 2.483 0 0 0-1.763-.943l-.396-3.163a2.499 2.499 0 0 0 1.231-.908zM10 4V3a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1zM2 9a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+              <path fill="none" d="M0 0h24v24H0z"/>
+            </svg>
+            `;
 
             const label = document.createElement("span");
             label.innerText = "Tag Graph";
@@ -1188,182 +1202,6 @@
     }
 
 
-    // function addNavButton() {
-    //     const interval = setInterval(() => {
-    //         const nav = document.querySelector(".navbar-nav");
-
-    //         if (!nav) return;
-
-    //         if (document.getElementById("tag-graph-btn")) {
-    //             clearInterval(interval);
-    //             return;
-    //         }
-
-    //         const li = document.createElement("li");
-    //         li.className = "nav-item";
-
-    //         const btn = document.createElement("a");
-    //         btn.className = "nav-link";
-    //         btn.id = "tag-graph-btn";
-    //         btn.href = "#";
-    //         btn.setAttribute("role", "button");
-
-    //         // Create the Icon element
-    //         const icon = document.createElement("img");
-    //         icon.src = "/plugins/adv-tag-graph/assets/tag-graph-menu-icon.svg";
-    //         icon.style.width = "1.25rem";
-    //         icon.style.height = "1.25rem";
-    //         icon.style.marginRight = "0.5rem";
-
-    //         const label = document.createElement("span");
-    //         label.innerText = "Tag Graph";
-
-    //         btn.appendChild(icon);
-    //         btn.appendChild(label);
-
-    //         btn.onclick = (e) => {
-    //             e.preventDefault();
-    //             renderGraphPage();
-    //         };
-
-    //         li.appendChild(btn);
-    //         nav.appendChild(li);
-
-    //         clearInterval(interval);
-    //     }, 1000);
-    // }
-
-    // function addNavButton() {
-    //     const interval = setInterval(() => {
-    //         const nav = document.querySelector(".navbar-nav");
-
-    //         if (!nav) return;
-
-    //         // Prevent duplicate buttons
-    //         if (document.getElementById("tag-graph-btn")) {
-    //             clearInterval(interval);
-    //             return;
-    //         }
-
-    //         const li = document.createElement("li");
-    //         li.className = "nav-item";
-
-    //         const btn = document.createElement("a");
-    //         btn.className = "nav-link";
-    //         btn.id = "tag-graph-btn";
-    //         btn.href = "#";
-    //         btn.setAttribute("role", "button");
-
-    //         // Create the Icon element
-    //         const icon = document.createElement("img");
-    //         // Ensure this path matches your plugin's folder name in /plugins/
-    //         icon.src = "/plugins/tag-graph-plugin/assets/tag-graph-menu-icon.svg";
-
-    //         // Match Stash's native icon sizing and alignment
-    //         Object.assign(icon.style, {
-    //             width: "1.25rem",
-    //             height: "1.25rem",
-    //             marginRight: "0.5rem",
-    //             verticalAlign: "middle",
-    //             display: "inline-block",
-    //             // This filter makes the SVG white to match the navbar text
-    //             filter: "invert(100%) brightness(200%)"
-    //         });
-
-    //         const label = document.createElement("span");
-    //         label.innerText = "Tag Graph";
-    //         label.style.verticalAlign = "middle";
-
-    //         btn.appendChild(icon);
-    //         btn.appendChild(label);
-
-    //         btn.onclick = (e) => {
-    //             e.preventDefault();
-    //             renderGraphPage();
-    //         };
-
-    //         li.appendChild(btn);
-    //         nav.appendChild(li);
-
-    //         clearInterval(interval);
-    //     }, 1000);
-    // }
-
-    // function addNavButton() {
-    //     const interval = setInterval(() => {
-    //         const nav = document.querySelector(".navbar-nav");
-
-    //         if (!nav) return;
-
-    //         if (document.getElementById("tag-graph-btn")) {
-    //             clearInterval(interval);
-    //             return;
-    //         }
-
-    //         const li = document.createElement("li");
-    //         li.className = "nav-item";
-
-    //         const btn = document.createElement("a");
-    //         btn.className = "nav-link";
-    //         btn.id = "tag-graph-btn";
-    //         btn.href = "#";
-    //         // btn.innerText = "Tag Graph";
-
-
-    //         // Add Font Awesome icon - Font Awesome 6 is loaded
-    //         const icon = document.createElement("i");
-    //         icon.className = "fa fa-share-nodes";  // Use fa-share-nodes (more common in FA6)
-    //         icon.style.marginRight = "5px";
-
-    //         const label = document.createElement("span");
-    //         label.innerText = "Tag Graph";
-
-    //         btn.appendChild(icon);
-    //         btn.appendChild(label);
-
-    //         btn.onclick = (e) => {
-    //             e.preventDefault();
-    //             renderGraphPage();
-    //         };
-
-    //         li.appendChild(btn);
-    //         nav.appendChild(li);
-
-    //         console.log("Tag Graph button added with Font Awesome icon");
-    //         clearInterval(interval);
-    //     }, 1000);
-
-    //     //     // Check if Font Awesome is loaded
-    //     //     if (!window.FontAwesome && !document.querySelector('link[href*="font-awesome"]')) {
-    //     //         console.warn("Font Awesome not detected, using text fallback");
-    //     //         btn.innerText = "📊 Tag Graph";
-    //     //     } else {
-    //     //         // Add Font Awesome icon
-    //     //         const icon = document.createElement("i");
-    //     //         // icon.className = "fa fa-project-diagram";  // Graph/network icon
-    //     //         // icon.className = "fa fa-sitemap";  // Tree/hierarchy icon (more likely to exist)
-    //     //         icon.className = "fa fa-share";  // Tree/hierarchy icon (more likely to exist)
-    //     //         icon.style.marginRight = "5px";
-
-    //     //         const label = document.createElement("span");
-    //     //         label.innerText = "Tag Graph";
-
-    //     //         btn.appendChild(icon);
-    //     //         btn.appendChild(label);
-    //     //     }
-
-    //     //     btn.onclick = (e) => {
-    //     //         e.preventDefault();
-    //     //         renderGraphPage();  // Changed from renderGraph() to renderGraphPage()
-    //     //     };
-
-    //     //     li.appendChild(btn);
-    //     //     nav.appendChild(li);
-
-    //     //     console.log("Tag Graph button added");
-    //     //     clearInterval(interval);
-    //     // }, 1000);
-    // }
 
     // --- WATCH NAVIGATION ---
     function watchNavigation() {
@@ -1411,25 +1249,7 @@
         document.head.appendChild(style);
     }
 
-    // function injectStyles() {
-    //     const style = document.createElement("style");
-    //     style.innerHTML = `
-    //     /* Match Stash's hover transparency for nav icons */
-    //     .nav-item #tag-graph-btn img {
-    //         opacity: 0.8;
-    //         transition: opacity 0.2s;
-    //     }
-    //     .nav-item #tag-graph-btn:hover img, 
-    //     .nav-item #tag-graph-btn.active img {
-    //         opacity: 1;
-    //     }
-    //     /* Ensure the container doesn't overlap the navbar */
-    //     #tag-graph-container {
-    //         background-color: #111; /* Match Stash's dark theme background */
-    //     }
-    // `;
-    //     document.head.appendChild(style);
-    // }
+
 
     // --- INIT ---
     function init() {
